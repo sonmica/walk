@@ -19,7 +19,7 @@ const router = createRouter({
     },
     {
       path: '/challenges',
-      name: 'challanges',
+      name: 'challenges',
       component: () => import('../views/Challenges.vue'),
     },
   ],
