@@ -46,7 +46,7 @@ onMounted(async () => {
       <div class="columns center">
         <div id="parent">
           <div class="center padded-bot">
-            <button class="btn btn-large" @click="handleSignOut"> Log out</button>
+            <button class="btn btn-warning btn-large" @click="handleSignOut"> Log out</button>
           </div>
           <div>
             <p>

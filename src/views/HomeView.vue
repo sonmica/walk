@@ -29,6 +29,6 @@ onBeforeUnmount(async () => {
 <template>
   <LoginView v-if="!isLoggedIn" />
   <div v-else>
-    <button class="btn btn-large padded" @click="handleSignOut">To login</button>
+    <button class="btn btn-primary btn-large padded" @click="handleSignOut">To login</button>
   </div>
 </template>

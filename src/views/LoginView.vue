@@ -92,7 +92,7 @@ function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
 
               <div class="field">
                 <div class="center btn-container">
-                  <button class="btn btn-large" :class="{ 'is-loading': isLoading }" type="submit">
+                  <button class="btn btn-primary btn-large" :class="{ 'is-loading': isLoading }" type="submit">
                     {{ newUser ? 'Sign Up' : 'Login' }}
                   </button>
                 </div>
@@ -104,7 +104,7 @@ function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
             </form>
 
             <div class="center btn-container padded">
-              <button @click="goToAbout" class="btn">About</button>
+              <button @click="goToAbout" class="btn btn-info">About</button>
             </div>
 
             <div class="center" v-if="isLoading === true">
