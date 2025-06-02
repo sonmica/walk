@@ -1,5 +1,11 @@
 name: Grunt build and deploy on main
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 on:
   push:
     branches: ['main']
@@ -28,7 +34,7 @@ jobs:
           npm run build
           grunt
 
-      - name: Deploy
+      - name: Deploy GitHub Pages
         uses: actions/deploy-pages@v4
         with:
           branch: main
