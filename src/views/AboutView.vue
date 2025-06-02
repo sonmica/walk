@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div>
-      <h3>Welcome to the Walk app!</h3>
+      <h3>Welcome to the Walk App!</h3>
       <div>
         You can use this app to track your daily steps, and join your friends in themed challenges.
       </div>
