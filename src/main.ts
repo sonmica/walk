@@ -3,7 +3,7 @@ import './assets/main.css'
 import App from './App.vue'
 import router from './router'
 
-import { firebaseApp } from './firebase'
+import { firebaseApp } from '@/firebase'
 import { createApp } from 'vue'
 import { VueFire, VueFireAuth } from 'vuefire'
 import { VueFireDatabaseOptionsAPI } from 'vuefire'

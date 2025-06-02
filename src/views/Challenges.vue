@@ -4,7 +4,8 @@ import {auth, db} from "@/firebase";
 import router from "@/router";
 import {signOut} from "firebase/auth";
 import { useRoute } from 'vue-router';
-import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
+// import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 
 const route = useRoute()
 const id = route.params.id
@@ -23,17 +24,17 @@ async function addSteps() {
 
 }
 
-const fetch = async () => {
-  const q = query(collection(db, dbPath), where("owner", "==", uid.value), limit(1));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    let steps_data = {}
-    steps_data['id'] = doc.id
-    steps_data['data'] = doc.data()
-    steps.value = steps_data.steps_count
-  });
-
-}
+// const fetch = async () => {
+//   const q = query(collection(db, dbPath), where("owner", "==", uid.value), limit(1));
+//   const querySnapshot = await getDocs(q);
+//   querySnapshot.forEach((doc) => {
+//     let steps_data = {}
+//     steps_data['id'] = doc.id
+//     steps_data['data'] = doc.data()
+//     steps.value = steps_data.steps_count
+//   });
+//
+// }
 
 // const baseUrl = computed(() => {
 //   return process.env.VUE_APP_URL + 'r/'
@@ -66,14 +67,14 @@ function goToChallenge(challengeId: string) {
       <div class="columns center">
         <div id="parent">
           <div class="center pb-2">
-            <button class="btn btn-warning btn-large" @click="handleSignOut">Log out</button>
-            <button class="btn btn-large" @click="goToChallenge('123')">Go to challenge</button>
+            <button class="btn btn-warning btn-large me-2" @click="handleSignOut">Log out</button>
+            <button class="btn btn-primary btn-large" @click="goToChallenge('123')">Go to challenge</button>
           </div>
           <div>
             <p>You are signed in! uid: {{ uid }}</p>
           </div>
           <span class="">
-        <button @click="addSteps" :disabled="errorMessage !== ''" class="btn">Create initial</button>
+        <button @click="addSteps" :disabled="errorMessage !== ''" class="btn btn-warning">Create initial</button>
       </span>
         </div>
         <div>

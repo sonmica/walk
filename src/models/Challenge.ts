@@ -3,4 +3,5 @@ export default interface Challenge {
   title: string,
   startDate: Date,
   endDate: Date,
+  stepGoal: number
 }
