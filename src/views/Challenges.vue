@@ -63,6 +63,7 @@ onMounted(async () => {
 })
 
 function goToChallenge(challengeId: string) {
+  console.log(challengeId)
   router.push({ name: 'challengePersonal', params: { challengeId: challengeId } })
 }
 
@@ -82,10 +83,9 @@ function goToCreateChallenge() {
             <h2>Mary's Challenges</h2>
 
             <div>
-              <ChallengeItem v-for="challenge in challengeData" :key="challenge.id" :item="challenge" class="m-2"/>
+              <ChallengeItem v-for="challenge in challengeData" :key="challenge.id" :item="challenge" @selected="goToChallenge" class="m-2"/>
             </div>
 
-            <button class="btn btn-primary btn-large" @click="goToChallenge('123')">Go to challenge</button>
           </div>
           <button @click="goToCreateChallenge">Create Challenge</button>
           <span class="">
