@@ -59,6 +59,10 @@ onMounted(async () => {
 function goToChallenge(challengeId: string) {
   router.push({ name: 'challengePersonal', params: { challengeId: challengeId } })
 }
+
+function goToCreateChallenge() {
+  router.push({ name: 'createChallenge' })
+}
 </script>
 
 <template>
@@ -68,12 +72,15 @@ function goToChallenge(challengeId: string) {
       <button class="btn btn-primary btn-large" @click="goToChallenge('123')">
         Go to challenge
       </button>
+      <div>
+        <button @click="goToCreateChallenge">Create Challenge</button>
+      </div>
     </div>
     <div>
       <p>You are signed in! uid: {{ uid }}</p>
     </div>
-    <span class="">
-      <input v-model="steps" type="number" placeholder="Enter steps" />
+    <span>
+
       <button @click="addSteps" :disabled="errorMessage !== ''" class="btn btn-warning">
         Add steps
       </button>
