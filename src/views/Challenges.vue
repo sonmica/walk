@@ -19,9 +19,8 @@ const steps = ref(0)
 async function addSteps() {
   await addDoc(collection(db, dbPath), {
     owner: uid.value,
-    steps_count: 42,
+    steps_count: steps.value,
   });
-
 }
 
 // const fetch = async () => {
@@ -74,7 +73,8 @@ function goToChallenge(challengeId: string) {
             <p>You are signed in! uid: {{ uid }}</p>
           </div>
           <span class="">
-        <button @click="addSteps" :disabled="errorMessage !== ''" class="btn btn-warning">Create initial</button>
+        <input v-model="steps" type="number" placeholder="Enter steps" />
+        <button @click="addSteps" :disabled="errorMessage !== ''" class="btn btn-warning">Add steps</button>
       </span>
         </div>
         <div>
