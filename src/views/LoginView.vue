@@ -60,7 +60,7 @@ function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
             <div class="pb-2 text-small" v-if="newUser">
               <a href="#" @click="newUser = false">Returning User?</a>
             </div>
-            <div class="pb-2" v-else>
+            <div class="pb-2 text-small" v-else>
               <a href="#" @click="newUser = true">New user?</a>
             </div>
             <form @submit.prevent="handleLogin">
