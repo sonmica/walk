@@ -19,21 +19,28 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/challenges',
+      path: '/challenges/:id',
       name: 'challenges',
       component: () => import('../views/Challenges.vue'),
     },
     {
-      path: '/challengePersonal',
-      name: 'challengePersonal',
-      component: () => import('../views/ChallengePersonal.vue'),
+      path: '/challenge/:id/:id',
+      component: () => import('../views/Challenge.vue'),
+      children: [
+        {
+          path: 'personal',
+        component: () => import('../views/ChallengePersonal.vue'),
+        },
+        {
+          path: 'group',
+        component: () => import('../views/ChallengeGroup.vue'),
+        },
+        {
+          path: 'details',
+        component: () => import('../views/ChallengeDetails.vue'),
+        },
+      ],
     },
-    {
-      path: '/challengeGroup',
-      name: 'challengeGroup',
-      component: () => import('../views/ChallengeGroup.vue'),
-    },
-    { path: '/dashboard/:id', name: 'challenges', component: Challenges}
   ],
 })
 
