@@ -53,6 +53,11 @@ onMounted(async () => {
     uid.value = currentUser.uid
   }
 })
+
+function goToChallenge(challengeId: string) {
+  router.push({ name: 'challengePersonal', params: { 'challengeId': challengeId }});
+}
+
 </script>
 
 <template>
@@ -62,6 +67,7 @@ onMounted(async () => {
         <div id="parent">
           <div class="center pb-2">
             <button class="btn btn-warning btn-large" @click="handleSignOut">Log out</button>
+            <button class="btn btn-large" @click="goToChallenge('123')">Go to challenge</button>
           </div>
           <div>
             <p>You are signed in! uid: {{ uid }}</p>

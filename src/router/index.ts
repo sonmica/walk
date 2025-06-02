@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import Challenges from '@/views/Challenges.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,20 +23,23 @@ const router = createRouter({
       component: () => import('../views/Challenges.vue'),
     },
     {
-      path: '/challenge/:id/:id',
+      path: '/challenge',
       component: () => import('../views/Challenge.vue'),
       children: [
         {
           path: 'personal',
-        component: () => import('../views/ChallengePersonal.vue'),
+          name: 'challengePersonal',
+          component: () => import('../views/ChallengePersonal.vue'),
         },
         {
           path: 'group',
-        component: () => import('../views/ChallengeGroup.vue'),
+          name: 'challengeGroup',
+          component: () => import('../views/ChallengeGroup.vue'),
         },
         {
           path: 'details',
-        component: () => import('../views/ChallengeDetails.vue'),
+          name: 'challengeDetails',
+          component: () => import('../views/ChallengeDetails.vue'),
         },
       ],
     },
