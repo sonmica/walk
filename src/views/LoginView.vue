@@ -19,11 +19,11 @@ const handleLogin = async () => {
   try {
     if (newUser.value) {
       await createUserWithEmailAndPassword(auth, email.value, password.value)
-          .then((userCredentials) => sendEmailAndGoToDashboard(userCredentials))
+          .then((userCredentials) => sendEmailAndGoToChallenges(userCredentials))
     } else {
       await signInWithEmailAndPassword(auth, email.value, password.value)
           .then((userCredentials) =>
-              goToDashboard(userCredentials.user.uid)
+              goToChallenges(userCredentials.user.uid)
           )
     }
   } catch (error) {
@@ -36,14 +36,13 @@ function goToAbout() {
   router.push({ name: 'about' })
 }
 
-function goToDashboard(uidString: string) {
-  // router.push({ name: "dashboard", params: { uid: uidString} })
-  router.push(`/dashboard/${uidString}`)
+function goToChallenges(uidString: string) {
+  router.push(`/challenges/${uidString}`)
 }
 
-function sendEmailAndGoToDashboard(userCredentials: UserCredential) {
+function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
   sendEmailVerification(userCredentials.user);
-  goToDashboard(userCredentials.user.uid);
+  goToChallenges(userCredentials.user.uid);
 }
 </script>
 

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import DashboardView from '@/views/DashboardView.vue'
+import Challenges from '@/views/Challenges.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +33,7 @@ const router = createRouter({
       name: 'challengeGroup',
       component: () => import('../views/ChallengeGroup.vue'),
     },
-    { path: '/dashboard/:id', name: 'dashboard', component: DashboardView}
+    { path: '/dashboard/:id', name: 'challenges', component: Challenges}
   ],
 })
 
