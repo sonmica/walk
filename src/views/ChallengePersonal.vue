@@ -1,10 +1,18 @@
 <template>
   <div class="challengePersonal">
-    Challenges Page (personal) {{steps}}/{{goal}}
-    <div class="progress" role="progressbar" aria-label="Steps towards goal" v-bind:aria-valuenow="{steps}" v-bind:aria-valuemin="0" v-bind:aria-valuemax="{goal}" style="height: 20px">
-      <div class="progress-bar" v-bind:style="{width: percentToGoal+'%'}"></div>
+    Challenges Page (personal) {{ steps }}/{{ goal }}
+    <div
+      class="progress"
+      role="progressbar"
+      aria-label="Steps towards goal"
+      :aria-valuenow="steps"
+      :aria-valuemin="0"
+      :aria-valuemax="goal"
+      style="height: 20px"
+    >
+      <div class="progress-bar" v-bind:style="{ width: percentToGoal + '%' }"></div>
     </div>
-    <input type="range" v-model="steps">
+    <input type="range" v-model="steps" />
   </div>
 </template>
 
@@ -12,17 +20,16 @@
 export default {
   data() {
     return {
-      goal: 350,
-      steps: 28
+      goal: 350 as number,
+      steps: 28 as number,
     }
   },
   computed: {
-    percentToGoal(){
-      return this.steps/this.goal*100;
-    } 
-  }
+    percentToGoal() {
+      return (this.steps / this.goal) * 100
+    },
+  },
 }
 </script>
 
-<style>
-</style>
+<style></style>
