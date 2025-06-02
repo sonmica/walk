@@ -43,15 +43,11 @@ jobs:
       pages: write
       id-token: write
 
-      environment:
-        name: github-pages # Specifies the environment for deployment.
-        url: ${{ steps.deployment.outputs.page_url }} # Retrieves the deployment URL from the previous deployment step.
-
-      runs-on: ubuntu-latest # Specifies the operating system for the deployment job.
-      steps:
-        - name: Deploy to GitHub Pages # Deploys the application to GitHub Pages.
-          id: deployment
-          uses: actions/deploy-pages@v4 # Specifies the version of the deployment action.
-          with:
-            branch: main
-            folder: dist
+    runs-on: ubuntu-latest # Specifies the operating system for the deployment job.
+    steps:
+      - name: Deploy to GitHub Pages # Deploys the application to GitHub Pages.
+        id: deployment
+        uses: actions/deploy-pages@v4 # Specifies the version of the deployment action.
+        with:
+          branch: main
+          folder: dist
