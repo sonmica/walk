@@ -1,36 +1,38 @@
 <script setup lang="ts">
-import { auth } from "@/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { ref } from 'vue';
-import router from "@/router";
-import { type UserCredential } from "firebase/auth"
+import { auth } from '@/firebase'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth'
+import { ref } from 'vue'
+import router from '@/router'
+import { type UserCredential } from 'firebase/auth'
 
-
-const email = ref('');
-const password = ref('');
-const isLoading = ref(false);
-const errorMessage = ref('');
-const newUser = ref(true);
+const email = ref('')
+const password = ref('')
+const isLoading = ref(false)
+const errorMessage = ref('')
+const newUser = ref(true)
 
 const handleLogin = async () => {
-
-  isLoading.value = true;
-  errorMessage.value = '';
+  isLoading.value = true
+  errorMessage.value = ''
   try {
     if (newUser.value) {
-      await createUserWithEmailAndPassword(auth, email.value, password.value)
-          .then((userCredentials) => sendEmailAndGoToChallenges(userCredentials))
+      await createUserWithEmailAndPassword(auth, email.value, password.value).then(
+        (userCredentials) => sendEmailAndGoToChallenges(userCredentials),
+      )
     } else {
-      await signInWithEmailAndPassword(auth, email.value, password.value)
-          .then((userCredentials) =>
-              goToChallenges(userCredentials.user.uid)
-          )
+      await signInWithEmailAndPassword(auth, email.value, password.value).then((userCredentials) =>
+        goToChallenges(userCredentials.user.uid),
+      )
     }
   } catch (error) {
     console.log(error)
   }
-  isLoading.value = false;
-};
+  isLoading.value = false
+}
 
 function goToAbout() {
   router.push({ name: 'about' })
@@ -41,8 +43,8 @@ function goToChallenges(uidString: string) {
 }
 
 function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
-  sendEmailVerification(userCredentials.user);
-  goToChallenges(userCredentials.user.uid);
+  sendEmailVerification(userCredentials.user)
+  goToChallenges(userCredentials.user.uid)
 }
 </script>
 
@@ -55,14 +57,14 @@ function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
             <div class="center">
               <h1 class="title">Login</h1>
             </div>
-            <div class="padded-bot" v-if="newUser">
+            <div class="pb-2 text-small" v-if="newUser">
               <a href="#" @click="newUser = false">Returning User?</a>
             </div>
-            <div class="padded-bot" v-else>
+            <div class="pb-2" v-else>
               <a href="#" @click="newUser = true">New user?</a>
             </div>
             <form @submit.prevent="handleLogin">
-              <div class="field padded-bot">
+              <div class="field pb-2">
                 <label class="label">Email</label>
                 <div class="control">
                   <input
@@ -76,7 +78,7 @@ function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
                 </div>
               </div>
 
-              <div class="field padded-bot">
+              <div class="field pb-2">
                 <label class="label">Password</label>
                 <div class="control">
                   <input
@@ -90,9 +92,13 @@ function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
                 </div>
               </div>
 
-              <div class="field">
-                <div class="center btn-container">
-                  <button class="btn btn-primary btn-large" :class="{ 'is-loading': isLoading }" type="submit">
+              <div class="field pb-2">
+                <div class="btn-container">
+                  <button
+                    class="btn btn-primary btn-large"
+                    :class="{ 'is-loading': isLoading }"
+                    type="submit"
+                  >
                     {{ newUser ? 'Sign Up' : 'Login' }}
                   </button>
                 </div>
@@ -103,8 +109,8 @@ function sendEmailAndGoToChallenges(userCredentials: UserCredential) {
               </div>
             </form>
 
-            <div class="center btn-container padded">
-              <button @click="goToAbout" class="btn btn-info">About</button>
+            <div class="btn-container padded">
+              <button @click="goToAbout" class="btn btn-outline-info">About</button>
             </div>
 
             <div class="center" v-if="isLoading === true">
