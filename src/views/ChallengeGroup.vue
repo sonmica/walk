@@ -5,19 +5,41 @@
 
     <div class="pb-2">
       <h6>Leaderboard</h6>
-      <ol class="list-group list-group-numbered" data-bs-theme="dark">
-        <li class="list-group-item">Barry Boring</li>
-        <li class="list-group-item">Penelope Peculiar</li>
-        <li class="list-group-item">Bruce Wayne</li>
-        <li class="list-group-item list-group-item-primary">Marty McFly</li>
-        <li class="list-group-item">Diana Disaster</li>
-        <li class="list-group-item">Peter Perfect</li>
-      </ol>
+      <ul class="list-group" data-bs-theme="dark">
+        <li class="list-group-item d-flex justify-content-between">
+          <div><span>1. </span>Barry Boring</div>
+          <div>11, 342</div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <div><span>2. </span>Penelope Peculiar</div>
+          <div>10, 821</div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <div><span>3. </span>Bruce Wayne</div>
+          <div>9, 231</div>
+        </li>
+
+        <li class="list-group-item list-group-item-primary d-flex justify-content-between">
+          <div><span>4. </span>Marty McFly</div>
+          <div>8, 766</div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <div><span>5. </span>Diana Disaster</div>
+          <div>5, 001</div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <div><span>6. </span>Peter Perfect</div>
+          <div>2, 389</div>
+        </li>
+      </ul>
     </div>
     <div>
       <h6>You</h6>
       <ul class="list-group" data-bs-theme="dark">
-        <li class="list-group-item list-group-item-primary"><span>4. </span>Marty McFly</li>
+        <li class="list-group-item list-group-item-primary d-flex justify-content-between">
+          <div><span>4. </span>Marty McFly</div>
+          <div>8, 766</div>
+        </li>
       </ul>
     </div>
   </div>

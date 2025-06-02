@@ -1,16 +1,16 @@
-<script setup lang="ts">
-import {onMounted, ref} from 'vue';
-import {auth, db} from "@/firebase";
-import router from "@/router";
-import {signOut} from "firebase/auth";
-import { useRoute } from 'vue-router';
+<script lang="ts">
+import { onMounted, ref } from 'vue'
+import { auth, db } from '@/firebase'
+import router from '@/router'
+import { signOut } from 'firebase/auth'
+import { useRoute } from 'vue-router'
 // import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
 import { addDoc, collection } from 'firebase/firestore'
 
 const route = useRoute()
 const id = route.params.id
 
-const dbPath = "steps"
+const dbPath = 'steps'
 
 const uid = ref('')
 const errorMessage = ref('')
@@ -20,8 +20,7 @@ async function addSteps() {
   await addDoc(collection(db, dbPath), {
     owner: uid.value,
     steps_count: 42,
-  });
-
+  })
 }
 
 // const fetch = async () => {
@@ -56,9 +55,8 @@ onMounted(async () => {
 })
 
 function goToChallenge(challengeId: string) {
-  router.push({ name: 'challengePersonal', params: { 'challengeId': challengeId }});
+  router.push({ name: 'challengePersonal', params: { challengeId: challengeId } })
 }
-
 </script>
 
 <template>
@@ -68,19 +66,20 @@ function goToChallenge(challengeId: string) {
         <div id="parent">
           <div class="center pb-2">
             <button class="btn btn-warning btn-large me-2" @click="handleSignOut">Log out</button>
-            <button class="btn btn-primary btn-large" @click="goToChallenge('123')">Go to challenge</button>
+            <button class="btn btn-primary btn-large" @click="goToChallenge('123')">
+              Go to challenge
+            </button>
           </div>
           <div>
             <p>You are signed in! uid: {{ uid }}</p>
           </div>
           <span class="">
-        <button @click="addSteps" :disabled="errorMessage !== ''" class="btn btn-warning">Create initial</button>
-      </span>
+            <button @click="addSteps" :disabled="errorMessage !== ''" class="btn btn-warning">
+              Create initial
+            </button>
+          </span>
         </div>
-        <div>
-
-
-        </div>
+        <div></div>
       </div>
     </div>
   </section>
