@@ -23,7 +23,17 @@ const router = createRouter({
       name: 'challenges',
       component: () => import('../views/Challenges.vue'),
     },
-    { path: '/dashboard/:id', name: 'dashboard', component: DashboardView},
+    {
+      path: '/challengePersonal',
+      name: 'challengePersonal',
+      component: () => import('../views/ChallengePersonal.vue'),
+    },
+    {
+      path: '/challengeGroup',
+      name: 'challengeGroup',
+      component: () => import('../views/ChallengeGroup.vue'),
+    },
+    { path: '/dashboard/:id', name: 'dashboard', component: DashboardView}
   ],
 })
 
