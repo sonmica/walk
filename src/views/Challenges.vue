@@ -1,18 +1,39 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { auth } from '@/firebase'
-// import {collection, addDoc, query, where, getDocs} from "firebase/firestore";
-import router from '@/router'
-import { signOut } from 'firebase/auth'
-import { useRoute } from 'vue-router'
+import {onMounted, ref} from 'vue';
+import {auth, db} from "@/firebase";
+import router from "@/router";
+import {signOut} from "firebase/auth";
+import { useRoute } from 'vue-router';
+import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
 
 const route = useRoute()
 const id = route.params.id
 
-// const dbPath = ""
+const dbPath = "steps"
 
 const uid = ref('')
 const errorMessage = ref('')
+const steps = ref(0)
+
+async function addSteps() {
+  await addDoc(collection(db, dbPath), {
+    owner: uid.value,
+    steps_count: 42,
+  });
+
+}
+
+const fetch = async () => {
+  const q = query(collection(db, dbPath), where("owner", "==", uid.value), limit(1));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    let steps_data = {}
+    steps_data['id'] = doc.id
+    steps_data['data'] = doc.data()
+    steps.value = steps_data.steps_count
+  });
+
+}
 
 // const baseUrl = computed(() => {
 //   return process.env.VUE_APP_URL + 'r/'
@@ -45,6 +66,13 @@ onMounted(async () => {
           <div>
             <p>You are signed in! uid: {{ uid }}</p>
           </div>
+          <span class="">
+        <button @click="addSteps" :disabled="errorMessage !== ''" class="btn">Create initial</button>
+      </span>
+        </div>
+        <div>
+
+
         </div>
       </div>
     </div>
