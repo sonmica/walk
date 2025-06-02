@@ -23,6 +23,11 @@ const router = createRouter({
       component: () => import('../views/Challenges.vue'),
     },
     {
+      path: '/create',
+      name: 'createChallenge',
+      component: () => import('../views/CreateChallenge.vue'),
+    },
+    {
       path: '/challenge',
       component: () => import('../views/Challenge.vue'),
       children: [
