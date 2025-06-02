@@ -4,7 +4,8 @@ import {auth, db} from "@/firebase";
 import router from "@/router";
 import {signOut} from "firebase/auth";
 import { useRoute } from 'vue-router';
-import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
+// import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 
 const route = useRoute()
 const id = route.params.id
@@ -23,17 +24,17 @@ async function addSteps() {
 
 }
 
-const fetch = async () => {
-  const q = query(collection(db, dbPath), where("owner", "==", uid.value), limit(1));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    let steps_data = {}
-    steps_data['id'] = doc.id
-    steps_data['data'] = doc.data()
-    steps.value = steps_data.steps_count
-  });
-
-}
+// const fetch = async () => {
+//   const q = query(collection(db, dbPath), where("owner", "==", uid.value), limit(1));
+//   const querySnapshot = await getDocs(q);
+//   querySnapshot.forEach((doc) => {
+//     let steps_data = {}
+//     steps_data['id'] = doc.id
+//     steps_data['data'] = doc.data()
+//     steps.value = steps_data.steps_count
+//   });
+//
+// }
 
 // const baseUrl = computed(() => {
 //   return process.env.VUE_APP_URL + 'r/'
