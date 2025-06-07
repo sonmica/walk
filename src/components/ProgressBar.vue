@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     percentToGoal() {
-      return this.steps ? (this.steps / (this.goal ? this.goal : 0) * 100) : 0
+      return (this.steps && this.goal) ? (this.steps / this.goal * 100) : 0
     },
   },
 }
