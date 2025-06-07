@@ -4,9 +4,9 @@ import { auth, db } from '@/firebase'
 import router from '@/router'
 import { signOut } from 'firebase/auth'
 import { useRoute } from 'vue-router'
-// import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
 import ChallengeItem from '@/components/ChallengeItem.vue';
+import type Challenge from '@/models/Challenge';
 
 const route = useRoute();
 const id = route.params.id;
@@ -18,10 +18,7 @@ const errorMessage = ref('');
 const steps = ref(0);
 const creatingNewChallenge = ref(false);
 
-const challengeData = [
-  { id: '1', name: 'The Challenge' },
-  { id: '2', name: 'Walk the Shire' }
-];
+let challengeData = new Array<Challenge>();
 
 async function addSteps() {
   await addDoc(collection(db, dbPath), {
@@ -59,6 +56,16 @@ onMounted(async () => {
   }
   if (currentUser) {
     uid.value = currentUser.uid
+
+    const querySnapshot = await getDocs(collection(db, 'challenges'));
+    challengeData = querySnapshot.docs.map(q => ({
+      id: q.id,
+      adminUid: q.get('adminUid'),
+      title: q.get('title'),
+      startDate: q.get('startDate'),
+      endDate: q.get('endDate'),
+      stepGoal: q.get('stepGoal')
+    } as Challenge));
   }
 })
 
@@ -83,14 +90,15 @@ function goToCreateChallenge() {
             <h2>Mary's Challenges</h2>
 
             <div>
-              <ChallengeItem v-for="challenge in challengeData" :key="challenge.id" :item="challenge" @selected="goToChallenge" class="m-2"/>
+              <ChallengeItem v-for="challenge in challengeData" :key="challenge.id" :challenge="challenge"
+                @selected="goToChallenge" class="m-2" />
             </div>
 
           </div>
           <button @click="goToCreateChallenge">Create Challenge</button>
           <span class="">
-          <input v-model="steps" type="number" placeholder="Enter steps" />
-          <button @click="addSteps" :disabled="errorMessage !== ''" class="btn btn-warning">Add steps</button>
+            <input v-model="steps" type="number" placeholder="Enter steps" />
+            <button @click="addSteps" :disabled="errorMessage !== ''" class="btn btn-warning">Add steps</button>
           </span>
         </div>
       </div>
