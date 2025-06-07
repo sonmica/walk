@@ -3,9 +3,8 @@
     <div class="p-md-2">
       <div style="display: flex;">
         <h6>{{ challenge?.title }}</h6>
-        <p style="margin-left: auto;">1245 / 20000</p>
       </div>
-      <div class="progress" role="progressbar" aria-label="Steps towards goal" v-bind:aria-valuenow="1245" v-bind:aria-valuemin="0" v-bind:aria-valuemax="20000" style="height: 20px"></div>
+      <ProgressBar :steps=4 :goal="challenge?.stepGoal"></ProgressBar>
       </div>
     </div>
 </template>
@@ -17,6 +16,7 @@
 </style>
 
 <script lang="ts">
+import ProgressBar from './ProgressBar.vue';
 import type Challenge from '@/models/Challenge';
 import type { PropType } from 'vue'
 
@@ -26,6 +26,9 @@ export default {
   },
   setup(props) {
     console.log(props.challenge)
-  }
+  },
+  components: {
+    ProgressBar
+  },
 }
 </script>
