@@ -18,7 +18,7 @@ const errorMessage = ref('');
 const steps = ref(0);
 const creatingNewChallenge = ref(false);
 
-let challengeData = new Array<Challenge>();
+let challengeData = ref(new Array<Challenge>());
 
 async function addSteps() {
   await addDoc(collection(db, dbPath), {
@@ -58,7 +58,7 @@ onMounted(async () => {
     uid.value = currentUser.uid
 
     const querySnapshot = await getDocs(collection(db, 'challenges'));
-    challengeData = querySnapshot.docs.map(q => ({
+    challengeData.value = querySnapshot.docs.map(q => ({
       id: q.id,
       adminUid: q.get('adminUid'),
       title: q.get('title'),
