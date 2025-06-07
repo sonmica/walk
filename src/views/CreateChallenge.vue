@@ -25,7 +25,7 @@ async function addChallenge() {
 
 }
 
-function goToChallenges(uidString: string) {
+function goToChallenges(uidString: string | undefined) {
   router.push(`/challenges/${uidString}`)
 }
 

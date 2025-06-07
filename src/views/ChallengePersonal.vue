@@ -1,22 +1,13 @@
 <template>
   <div class="challengePersonal">
-    Challenges Page (personal) {{ steps }}/{{ challenge?.stepGoal }}
-    <div
-      class="progress"
-      role="progressbar"
-      aria-label="Steps towards goal"
-      :aria-valuenow="steps"
-      :aria-valuemin="0"
-      :aria-valuemax="challenge?.stepGoal"
-      style="height: 20px"
-    >
-      <div class="progress-bar" v-bind:style="{ width: percentToGoal + '%' }"></div>
-    </div>
+    Challenges Page (personal)
+    <ProgressBar :steps="steps" :goal="challenge?.stepGoal"></ProgressBar>
     <input type="range" v-model="steps" />
   </div>
 </template>
 
 <script lang="ts">
+import ProgressBar from '@/components/ProgressBar.vue';
 import type Challenge from '@/models/Challenge';
 import type { PropType } from 'vue'
 
@@ -33,12 +24,7 @@ export default {
     return {
       steps: 28 as number,
     }
-  },
-  computed: {
-    percentToGoal() {
-      return this.challenge ? (this.steps / this.challenge?.stepGoal * 100) : 0
-    },
-  },
+  }
 }
 </script>
 
