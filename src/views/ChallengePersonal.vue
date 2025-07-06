@@ -8,17 +8,17 @@
 <script lang="ts">
 import ProgressBar from '@/components/ProgressBar.vue';
 import type Challenge from '@/models/Challenge';
-import router from '@/router';
 import { useChallengeStore } from '@/stores/challengeStore';
 import { useStepsStore } from '@/stores/stepsStore';
-import type { PropType } from 'vue'
+
+const challengeStore = useChallengeStore();
+const stepsStore = useStepsStore();
 
 export default {
   created() {
-    // Fetch whatever challenge has been set as the "current" on in the store
-    const challengeStore = useChallengeStore();
+    // Fetch whatever challenge has been set as the "current" challenge in the store
     this.challenge = challengeStore.getCurrentChallenge;
-    const stepsStore = useStepsStore();
+    // Fetch the total steps for the current user
     this.steps = stepsStore.totalSteps;
   },
   data() {

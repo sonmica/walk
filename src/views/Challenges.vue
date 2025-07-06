@@ -60,7 +60,7 @@ onMounted(async () => {
       stepGoal: q.get('stepGoal')
     } as Challenge));
 
-    // reset steps store as we're about to count them up again
+    // reset steps store as we're about to count them up again (not sure if this is necessary)
     stepsStore.setSteps(0);
 
     // Get steps data from Firebase
