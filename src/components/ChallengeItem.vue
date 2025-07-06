@@ -1,10 +1,10 @@
 <template>
-  <div @click="$emit('selected', challenge?.id)" class="item rounded">
+  <div @click="$emit('selected', challenge)" class="item rounded">
     <div class="p-md-2">
       <div style="display: flex;">
         <h6>{{ challenge?.title }}</h6>
       </div>
-      <ProgressBar :steps=4 :goal="challenge?.stepGoal"></ProgressBar>
+      <ProgressBar :steps=steps :goal="challenge?.stepGoal"></ProgressBar>
       </div>
     </div>
 </template>
@@ -18,14 +18,19 @@
 <script lang="ts">
 import ProgressBar from './ProgressBar.vue';
 import type Challenge from '@/models/Challenge';
+import { useStepsStore } from '@/stores/stepsStore';
 import type { PropType } from 'vue'
+
+const stepsStore = useStepsStore();
 
 export default {
   props: {
     challenge: Object as PropType<Challenge>
   },
-  setup(props) {
-    console.log(props.challenge)
+  computed: {
+    steps() {
+      return stepsStore.totalSteps
+    }
   },
   components: {
     ProgressBar
