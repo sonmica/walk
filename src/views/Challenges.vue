@@ -8,43 +8,33 @@ import { addDoc, collection, getDocs, query, where, limit } from 'firebase/fires
 import ChallengeItem from '@/components/ChallengeItem.vue';
 import type Challenge from '@/models/Challenge';
 import { useChallengeStore } from '@/stores/challengeStore'
+import { useStepsStore } from '@/stores/stepsStore'
 
 const route = useRoute();
 const id = route.params.id;
 
-const dbPath = "steps";
+const stepsDbPath = "steps";
 
 const uid = ref('');
 const errorMessage = ref('');
 const steps = ref(0);
 const creatingNewChallenge = ref(false);
 const challengeStore = useChallengeStore();
+const stepsStore = useStepsStore();
 
 let challengeData = ref(new Array<Challenge>());
 
 async function addSteps() {
-  await addDoc(collection(db, dbPath), {
-    userUid: uid.value,
+  // Add the steps in Firebase
+  await addDoc(collection(db, stepsDbPath), {
+    owner: uid.value,
     steps: steps.value,
     timestamp: Date.now()
-  })
+  });
+
+  // Also add them to the store so we don't need to go look in firebase again
+  stepsStore.addSteps(steps.value);
 }
-
-// const fetch = async () => {
-//   const q = query(collection(db, dbPath), where("owner", "==", uid.value), limit(1));
-//   const querySnapshot = await getDocs(q);
-//   querySnapshot.forEach((doc) => {
-//     let steps_data = {}
-//     steps_data['id'] = doc.id
-//     steps_data['data'] = doc.data()
-//     steps.value = steps_data.steps_count
-//   });
-//
-// }
-
-// const baseUrl = computed(() => {
-//   return process.env.VUE_APP_URL + 'r/'
-// });
 
 const handleSignOut = () => {
   signOut(auth)
@@ -59,8 +49,9 @@ onMounted(async () => {
   if (currentUser) {
     uid.value = currentUser.uid
 
-    const querySnapshot = await getDocs(collection(db, 'challenges'));
-    challengeData.value = querySnapshot.docs.map(q => ({
+    // Get challenge data from Firebase
+    const queryChallengeSnapshot = await getDocs(collection(db, 'challenges'));
+    challengeData.value = queryChallengeSnapshot.docs.map(q => ({
       id: q.id,
       adminUid: q.get('adminUid'),
       title: q.get('title'),
@@ -68,12 +59,25 @@ onMounted(async () => {
       endDate: q.get('endDate'),
       stepGoal: q.get('stepGoal')
     } as Challenge));
+
+    // reset steps store as we're about to count them up again
+    stepsStore.setSteps(0);
+
+    // Get steps data from Firebase
+    const q = query(collection(db, stepsDbPath), where("owner", "==", uid.value));
+    const queryStepsSnapshot = await getDocs(q);
+    // Add all steps documents for this user to the total in the steps store
+    queryStepsSnapshot.forEach((doc) => {
+      stepsStore.addSteps(doc.get('steps'));
+    });
   }
 })
 
 function goToChallenge(challenge: Challenge) {
+  // Set the "current" challenge in the store, so child pages can just read from that
+  // Because passing objects through the route was really hard and I gave up
   challengeStore.setCurrentChallenge(challenge);
-  router.push({ name: 'challengePersonal', params: { challengeId: challenge.id } })
+  router.push({ name: 'challengePersonal'})
 }
 
 function goToCreateChallenge() {
