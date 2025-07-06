@@ -7,6 +7,7 @@ import { useRoute } from 'vue-router'
 import { addDoc, collection, getDocs, query, where, limit } from 'firebase/firestore'
 import ChallengeItem from '@/components/ChallengeItem.vue';
 import type Challenge from '@/models/Challenge';
+import { useChallengeStore } from '@/stores/challengeStore'
 
 const route = useRoute();
 const id = route.params.id;
@@ -17,6 +18,7 @@ const uid = ref('');
 const errorMessage = ref('');
 const steps = ref(0);
 const creatingNewChallenge = ref(false);
+const challengeStore = useChallengeStore();
 
 let challengeData = ref(new Array<Challenge>());
 
@@ -69,9 +71,9 @@ onMounted(async () => {
   }
 })
 
-function goToChallenge(challengeId: string) {
-  console.log(challengeId)
-  router.push({ name: 'challengePersonal', params: { challengeId: challengeId } })
+function goToChallenge(challenge: Challenge) {
+  challengeStore.setCurrentChallenge(challenge);
+  router.push({ name: 'challengePersonal', params: { challengeId: challenge.id } })
 }
 
 function goToCreateChallenge() {
@@ -87,7 +89,7 @@ function goToCreateChallenge() {
           <div class="center pb-2">
             <button class="btn btn-warning btn-large me-2" @click="handleSignOut">Log out</button>
 
-            <h2>Mary's Challenges</h2>
+            <h2>Your challenges</h2>
 
             <div>
               <ChallengeItem v-for="challenge in challengeData" :key="challenge.id" :challenge="challenge"

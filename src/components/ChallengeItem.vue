@@ -1,5 +1,5 @@
 <template>
-  <div @click="$emit('selected', challenge?.id)" class="item rounded">
+  <div @click="$emit('selected', challenge)" class="item rounded">
     <div class="p-md-2">
       <div style="display: flex;">
         <h6>{{ challenge?.title }}</h6>

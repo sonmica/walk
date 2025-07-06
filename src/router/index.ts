@@ -32,7 +32,7 @@ const router = createRouter({
       component: () => import('../views/Challenge.vue'),
       children: [
         {
-          path: 'personal',
+          path: 'personal/:challengeId',
           name: 'challengePersonal',
           component: () => import('../views/ChallengePersonal.vue'),
         },

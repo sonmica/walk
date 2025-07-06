@@ -9,16 +9,18 @@
 <script lang="ts">
 import ProgressBar from '@/components/ProgressBar.vue';
 import type Challenge from '@/models/Challenge';
+import router from '@/router';
+import { useChallengeStore } from '@/stores/challengeStore';
 import type { PropType } from 'vue'
 
 export default {
-  props: {
-    challenge: Object as PropType<Challenge>
-  },
-  setup(props) {
-    if(!props.challenge){
-      throw new Error("No Challenge provided to ChallengePersonal!!")
-    }
+  created() {
+    const challengeStore = useChallengeStore();
+    console.log("=======");
+    console.log(router.currentRoute.value.params.challengeId);
+    console.log(challengeStore.getCurrentChallenge)
+    console.log("=======");
+
   },
   data() {
     return {
